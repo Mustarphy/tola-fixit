@@ -18,7 +18,7 @@ export default function ErrorPage({ retry }: ErrorPageProps) {
       actions={
         <>
           <Button onClick={retry}>Try again</Button>
-          <Link href="/" className={buttonClassName({ variant: 'secondary' })}>
+          <Link href="/" className={buttonClassName({ variant: 'outline' })}>
             Back to home
           </Link>
         </>

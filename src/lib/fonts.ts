@@ -1,16 +1,10 @@
-import { Barlow, Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 
-export const bodyFont = Inter({
+export const brandFont = Poppins({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
-  variable: '--font-body',
+  variable: '--font-brand',
 });
 
-export const headingFont = Barlow({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  display: 'swap',
-  variable: '--font-heading',
-});
-
-export const fontVariables = `${bodyFont.variable} ${headingFont.variable}`;
+export const fontVariables = brandFont.variable;

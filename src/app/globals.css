@@ -1,24 +1,27 @@
 @import 'tailwindcss';
 
 /*
- * Brand tokens. Values are provisional neutrals until the official
- * TOLA FIXIT palette is supplied; update them here, not in components.
+ * TOLA FIXIT brand tokens: wine (primary), black (secondary), white (base).
+ * Neutral shades are tinted from the wine hue. Update values here, not in components.
  */
 :root {
   --background: #ffffff;
-  --foreground: #18181b;
-  --surface: #f4f4f5;
-  --muted-foreground: #52525b;
-  --border: #e4e4e7;
+  --foreground: #121212;
+  --surface: #f7f5f5;
+  --muted-foreground: #5f5658;
+  --border: #e6e1e2;
+  --border-strong: #cfc7c9;
 
-  --primary: #18181b;
+  --primary: #6d1a2c;
+  --primary-hover: #561422;
   --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
-  --accent: #3f3f46;
-  --accent-foreground: #ffffff;
+  --secondary: #121212;
+  --secondary-hover: #2b2b2b;
+  --secondary-foreground: #ffffff;
+  --accent: #f8eef0;
+  --accent-foreground: #6d1a2c;
 
-  --ring: #2563eb;
+  --ring: #6d1a2c;
 }
 
 @theme inline {
@@ -27,22 +30,35 @@
   --color-surface: var(--surface);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
 
   --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
 
   --color-ring: var(--ring);
 
-  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-display:
-    var(--font-heading), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-brand), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-brand), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
+  --text-display: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+  --text-display--line-height: 1.1;
+  --text-h1: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  --text-h1--line-height: 1.15;
+  --text-h2: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: 1.125rem;
+  --text-h3--line-height: 1.4;
+  --text-nav: 0.875rem;
+  --text-nav--line-height: 1.25rem;
+
   --radius-sm: 0.125rem;
   --radius-md: 0.25rem;
   --radius-lg: 0.375rem;
@@ -50,11 +66,16 @@
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 2px 6px -1px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 12px 32px -12px rgb(18 18 18 / 0.18);
 }
 
 @layer base {
   html {
     color-scheme: light;
+  }
+
+  html:has(dialog[open]) {
+    overflow: hidden;
   }
 
   body {
@@ -65,7 +86,19 @@
   h2,
   h3,
   h4 {
-    @apply font-display tracking-tight text-balance;
+    @apply font-display font-bold tracking-tight text-balance;
+  }
+
+  h1 {
+    @apply text-h1;
+  }
+
+  h2 {
+    @apply text-h2;
+  }
+
+  h3 {
+    @apply text-h3 font-semibold tracking-normal;
   }
 
   *,
