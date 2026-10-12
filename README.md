@@ -65,8 +65,10 @@ src/
 ## Content
 
 - **Services:** the catalogue (names, groups, icons, summaries, SEO descriptions) is in [`src/content/services.ts`](src/content/services.ts); the long-form page copy is in [`src/content/service-details.ts`](src/content/service-details.ts); slugs are in [`src/content/service-slugs.ts`](src/content/service-slugs.ts). Navigation, the services page, service routes, the booking form and the sitemap all read from these, so adding a service there is enough.
+- **Images:** stored in `src/assets/images/` and imported statically (automatic dimensions and blur placeholders). Service photos are mapped in [`src/content/service-images.ts`](src/content/service-images.ts). A service without an entry shows its page header without a photo, so add a photo there only when one genuinely depicts that service.
 - **Navigation:** [`src/components/layout/navigation.ts`](src/components/layout/navigation.ts).
 - **Contact details:** set `phone`, `email` and `whatsapp` in [`src/lib/constants.ts`](src/lib/constants.ts). The contact page shows them automatically; until then it states that they will be published soon.
+- **Address and map:** the address shown on the site is `businessAddress` in [`src/lib/constants.ts`](src/lib/constants.ts). The map pin and the Get directions link use `businessMapLocation.query`, which can be a place name or exact coordinates (for example `"6.8200,3.9200"`). Set `isExact: true` once it points at the workshop itself.
 - **News:** add articles to [`src/content/news.ts`](src/content/news.ts). When the first article is published, also create `src/app/news/[slug]/page.tsx`. It is not created yet because Cache Components requires `generateStaticParams` to return at least one item.
 - **Booking:** `/book-service` shows the service request form in a disabled state. It does not submit anywhere until a backend is added.
 
@@ -89,3 +91,4 @@ The favicon at `src/app/icon.svg` and the wrench mark in the header logo are tem
 - Build mobile-first: base styles target small screens, and `sm:`/`md:`/`lg:` add larger-screen layouts.
 - Use semantic HTML, keep focus states visible, and give icons a text alternative or `aria-hidden`.
 - Don't add placeholder business content (contact details, prices, services) until it's provided.
+# tola-fixit
