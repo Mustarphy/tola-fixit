@@ -1,9 +1,12 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CircleCheck } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import { BookServiceCta } from '@/components/sections/book-service-cta';
 import { PageHeader } from '@/components/sections/page-header';
 import { Container } from '@/components/ui/container';
+import { ceo } from '@/content/leadership';
+import { serviceImages } from '@/content/service-images';
 import { serviceGroups } from '@/content/services';
 import { createPageMetadata } from '@/lib/metadata';
 
@@ -37,6 +40,7 @@ export default function AboutPage() {
         title="About TOLA FIXIT"
         description="An automotive repair and maintenance business focused on keeping vehicles safe, reliable and on the road."
         breadcrumbs={[{ label: 'About', href: '/about' }]}
+        image={serviceImages['engine-repair']}
       />
 
       <Container className="py-12 sm:py-16">
@@ -83,7 +87,51 @@ export default function AboutPage() {
           </section>
         </div>
 
-        <ul className="mt-14 grid gap-4 sm:grid-cols-2">
+        <section
+          aria-labelledby="ceo-heading"
+          className="mt-16 grid items-center gap-10 border-t pt-16 lg:grid-cols-5 lg:gap-16"
+        >
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-lg bg-secondary shadow-lg lg:col-span-2 lg:max-w-none">
+            <Image
+              src={ceo.image.src}
+              alt={ceo.image.alt}
+              fill
+              placeholder="blur"
+              sizes="(min-width: 1024px) 40vw, 384px"
+              className="object-cover"
+            />
+          </div>
+          <div className="lg:col-span-3">
+            <p className="text-sm font-semibold tracking-wider text-primary uppercase">
+              Meet our CEO
+            </p>
+            <h2 id="ceo-heading" className="mt-3">
+              {ceo.name}
+            </h2>
+            <p className="mt-2 font-medium text-muted-foreground">{ceo.role}</p>
+            <div className="mt-6 space-y-4 text-muted-foreground">
+              {ceo.bio.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <ul className="mt-8 flex flex-wrap gap-3">
+              {ceo.highlights.map((highlight) => (
+                <li
+                  key={highlight}
+                  className="inline-flex items-center gap-2 rounded-md border bg-surface px-3.5 py-2 text-sm font-semibold"
+                >
+                  <CircleCheck
+                    aria-hidden="true"
+                    className="size-4 text-primary"
+                  />
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <ul className="mt-16 grid gap-4 sm:grid-cols-2">
           {aboutLinks.map((link) => (
             <li key={link.href}>
               <Link

@@ -8,38 +8,19 @@ import { PageHeader } from '@/components/sections/page-header';
 import { ServiceGrid } from '@/components/sections/service-grid';
 import { buttonClassName } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
+import { WhatsAppIcon } from '@/components/ui/whatsapp-icon';
+import { serviceProcessSteps } from '@/content/approach';
 import { serviceDetails } from '@/content/service-details';
+import { serviceImages } from '@/content/service-images';
 import {
   getRelatedServices,
   getServiceBySlug,
   getServicePath,
   services,
 } from '@/content/services';
-import { bookServicePath } from '@/lib/constants';
+import { bookServicePath, contactDetails } from '@/lib/constants';
+import { getWhatsAppHref } from '@/lib/contact';
 import { createPageMetadata } from '@/lib/metadata';
-
-const serviceSteps = [
-  {
-    title: 'Tell us about your vehicle',
-    description:
-      'Share the make, model and what you’ve noticed, even if you’re not sure what the problem is.',
-  },
-  {
-    title: 'Inspection and diagnosis',
-    description:
-      'The vehicle is checked so the work is based on what is actually wrong.',
-  },
-  {
-    title: 'Clear recommendations',
-    description:
-      'Findings and recommended work are explained before any repair begins.',
-  },
-  {
-    title: 'Service and handover',
-    description:
-      'The agreed work is carried out and you are told what was done.',
-  },
-];
 
 export function generateStaticParams() {
   return services.map((service) => ({ service: service.slug }));
@@ -75,6 +56,7 @@ export default async function ServicePage({
         eyebrow="Service"
         title={service.title}
         description={service.summary}
+        image={serviceImages[service.slug]}
         breadcrumbs={[
           { label: 'Services', href: '/services' },
           { label: service.name, href: getServicePath(service.slug) },
@@ -87,12 +69,28 @@ export default async function ServicePage({
             >
               Book this service
             </Link>
-            <Link
-              href="/contact"
-              className={buttonClassName({ variant: 'outline', size: 'lg' })}
-            >
-              Ask a question
-            </Link>
+            {contactDetails.whatsapp ? (
+              <a
+                href={getWhatsAppHref(
+                  contactDetails.whatsapp,
+                  `Hello TOLA FIXIT, I have a question about ${service.name}.`,
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonClassName({ variant: 'outline', size: 'lg' })}
+              >
+                <WhatsAppIcon className="text-whatsapp" />
+                Ask on WhatsApp
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            ) : (
+              <Link
+                href="/contact"
+                className={buttonClassName({ variant: 'outline', size: 'lg' })}
+              >
+                Ask a question
+              </Link>
+            )}
           </>
         }
       />
@@ -133,7 +131,7 @@ export default async function ServicePage({
                 What to expect
               </h2>
               <ol className="mt-5 space-y-5">
-                {serviceSteps.map((step, index) => (
+                {serviceProcessSteps.map((step, index) => (
                   <li key={step.title} className="flex gap-4">
                     <span
                       aria-hidden="true"

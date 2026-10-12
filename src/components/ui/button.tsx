@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline';
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'whatsapp';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface ButtonStyleOptions {
@@ -14,6 +14,7 @@ interface ButtonStyleOptions {
 const variantClasses: Record<ButtonVariant, string> = {
   primary: 'bg-primary text-primary-foreground hover:bg-primary-hover',
   secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover',
+  whatsapp: 'bg-whatsapp text-secondary hover:bg-whatsapp-hover',
   outline:
     'border border-border-strong bg-background text-foreground hover:border-foreground',
 };

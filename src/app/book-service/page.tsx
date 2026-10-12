@@ -2,9 +2,11 @@ import { Suspense } from 'react';
 
 import { ServiceRequestForm } from '@/components/forms/service-request-form';
 import { PageHeader } from '@/components/sections/page-header';
+import { QuickContact } from '@/components/sections/quick-contact';
 import { Container } from '@/components/ui/container';
-import { getServiceBySlug } from '@/content/services';
+import { getServiceBySlug, type Service } from '@/content/services';
 import { bookServicePath } from '@/lib/constants';
+import { getServiceWhatsAppMessage } from '@/lib/contact';
 import { createPageMetadata } from '@/lib/metadata';
 
 export const metadata = createPageMetadata({
@@ -35,8 +37,8 @@ export default function BookServicePage({
       <Container className="py-12 sm:py-16">
         <div className="grid gap-12 lg:grid-cols-3 lg:gap-16">
           <div className="lg:col-span-2">
-            <Suspense fallback={<ServiceRequestForm />}>
-              <PreselectedServiceRequestForm searchParams={searchParams} />
+            <Suspense fallback={<BookingOptions />}>
+              <PreselectedBookingOptions searchParams={searchParams} />
             </Suspense>
           </div>
 
@@ -69,12 +71,35 @@ export default function BookServicePage({
   );
 }
 
-async function PreselectedServiceRequestForm({
+async function PreselectedBookingOptions({
   searchParams,
 }: Pick<PageProps<'/book-service'>, 'searchParams'>) {
   const { service } = await searchParams;
   const preselectedService =
     typeof service === 'string' ? getServiceBySlug(service) : undefined;
 
-  return <ServiceRequestForm defaultService={preselectedService?.slug} />;
+  return <BookingOptions service={preselectedService} />;
+}
+
+interface BookingOptionsProps {
+  service?: Service;
+}
+
+function BookingOptions({ service }: BookingOptionsProps) {
+  return (
+    <div className="space-y-10">
+      <QuickContact
+        title={
+          service
+            ? `Book ${service.name} on WhatsApp or by phone`
+            : 'Book on WhatsApp or by phone'
+        }
+        description="The quickest way to arrange a service right now. Tell us your vehicle, where it is and what you’ve noticed."
+        whatsAppMessage={
+          service ? getServiceWhatsAppMessage(service.name) : undefined
+        }
+      />
+      <ServiceRequestForm defaultService={service?.slug} />
+    </div>
+  );
 }

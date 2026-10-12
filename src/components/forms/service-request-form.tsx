@@ -56,8 +56,9 @@ export function ServiceRequestForm({
           <span className="font-semibold">
             Online service requests are not open yet.
           </span>{' '}
-          This form shows the details we’ll ask for. It will start accepting
-          requests once our booking system is live.
+          Please book on WhatsApp or by phone for now. This form shows the
+          details we’ll ask for, and will accept requests once online booking is
+          live.
         </p>
       </div>
 

@@ -3,6 +3,7 @@ import { Globe2, MapPin, Route } from 'lucide-react';
 import { BookServiceCta } from '@/components/sections/book-service-cta';
 import { PageHeader } from '@/components/sections/page-header';
 import { Container } from '@/components/ui/container';
+import { coupleDrivingImage } from '@/content/site-images';
 import { serviceArea } from '@/lib/constants';
 import { createPageMetadata } from '@/lib/metadata';
 
@@ -44,6 +45,7 @@ export default function ServiceCoveragePage() {
           { label: 'About', href: '/about' },
           { label: 'Service Coverage', href: '/about/service-coverage' },
         ]}
+        image={coupleDrivingImage}
       />
 
       <Container className="py-12 sm:py-16">

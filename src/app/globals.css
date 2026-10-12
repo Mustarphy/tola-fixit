@@ -22,6 +22,9 @@
   --accent-foreground: #6d1a2c;
 
   --ring: #6d1a2c;
+
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1ebe5d;
 }
 
 @theme inline {
@@ -42,6 +45,8 @@
   --color-accent-foreground: var(--accent-foreground);
 
   --color-ring: var(--ring);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-hover: var(--whatsapp-hover);
 
   --font-sans: var(--font-brand), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-brand), ui-sans-serif, system-ui, sans-serif;

@@ -1,8 +1,11 @@
 import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import { Container } from '@/components/ui/container';
+import { cn } from '@/lib/utils';
+import type { ContentImage } from '@/types';
 
 export interface Breadcrumb {
   label: string;
@@ -15,6 +18,7 @@ interface PageHeaderProps {
   description: string;
   breadcrumbs?: Breadcrumb[];
   actions?: ReactNode;
+  image?: ContentImage;
 }
 
 export function PageHeader({
@@ -23,6 +27,7 @@ export function PageHeader({
   description,
   breadcrumbs,
   actions,
+  image,
 }: PageHeaderProps) {
   return (
     <div className="border-b bg-surface">
@@ -58,18 +63,41 @@ export function PageHeader({
             </ol>
           </nav>
         )}
-        {eyebrow && (
-          <p className="mb-3 text-sm font-semibold tracking-wider text-primary uppercase">
-            {eyebrow}
-          </p>
-        )}
-        <h1 className="max-w-3xl">{title}</h1>
-        <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          {description}
-        </p>
-        {actions && (
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">{actions}</div>
-        )}
+        <div
+          className={cn(
+            image && 'grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16',
+          )}
+        >
+          <div>
+            {eyebrow && (
+              <p className="mb-3 text-sm font-semibold tracking-wider text-primary uppercase">
+                {eyebrow}
+              </p>
+            )}
+            <h1 className="max-w-3xl">{title}</h1>
+            <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+              {description}
+            </p>
+            {actions && (
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                {actions}
+              </div>
+            )}
+          </div>
+          {image && (
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg lg:aspect-[5/4]">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                preload
+                placeholder="blur"
+                sizes="(min-width: 1280px) 560px, (min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          )}
+        </div>
       </Container>
     </div>
   );

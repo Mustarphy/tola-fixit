@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, ChevronDown, MapPin, Menu, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, MapPin, Menu, Phone, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
@@ -14,7 +14,9 @@ import {
   type NavMenu,
 } from '@/components/layout/navigation';
 import { buttonClassName } from '@/components/ui/button';
-import { bookServicePath, serviceArea } from '@/lib/constants';
+import { WhatsAppIcon } from '@/components/ui/whatsapp-icon';
+import { bookServicePath, contactDetails, serviceArea } from '@/lib/constants';
+import { getPhoneHref, getWhatsAppHref } from '@/lib/contact';
 import { cn } from '@/lib/utils';
 
 const desktopMediaQuery = '(min-width: 64rem)';
@@ -136,6 +138,31 @@ export function MobileNav() {
             >
               Book a Service
             </Link>
+            {(contactDetails.phone || contactDetails.whatsapp) && (
+              <div className="grid grid-cols-2 gap-3">
+                {contactDetails.phone && (
+                  <a
+                    href={getPhoneHref(contactDetails.phone)}
+                    className={buttonClassName({ variant: 'outline' })}
+                  >
+                    <Phone aria-hidden="true" />
+                    Call us
+                  </a>
+                )}
+                {contactDetails.whatsapp && (
+                  <a
+                    href={getWhatsAppHref(contactDetails.whatsapp)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={buttonClassName({ variant: 'outline' })}
+                  >
+                    <WhatsAppIcon className="text-whatsapp" />
+                    WhatsApp
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                )}
+              </div>
+            )}
             <p className="flex items-start gap-2 text-sm text-muted-foreground">
               <MapPin
                 aria-hidden="true"

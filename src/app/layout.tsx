@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { Header } from '@/components/layout/header';
+import { WhatsAppChatButton } from '@/components/layout/whatsapp-chat-button';
 import { siteConfig } from '@/lib/constants';
 import { fontVariables } from '@/lib/fonts';
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col">
           {children}
         </main>
+        <WhatsAppChatButton />
       </body>
     </html>
   );
